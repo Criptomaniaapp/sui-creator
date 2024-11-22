@@ -54,7 +54,7 @@
     "react-gtag": "^0.0.0",
     "react-icons": "^5.2.1",
     "react-transition-group": "^4.4.5",
-    "styled-components": "^6.1.11",
+    "styled-components": "^6.1.13",
     "zustand": "^3.6.9"
   },
   "devDependencies": {
