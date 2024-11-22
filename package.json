@@ -27,7 +27,7 @@
     "@metaplex-foundation/umi-uploader-nft-storage": "^0.9.1",
     "@mui/icons-material": "^5.15.19",
     "@mui/material": "^5.15.19",
-    "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+    "@mui/styled-engine-sc": "^6.1.8",
     "@noble/ed25519": "^1.7.1",
     "@openbook-dex/openbook": "^0.0.9",
     "@openbook-dex/openbook-v2": "^0.2.10",
