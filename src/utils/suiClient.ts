@@ -1,4 +1,6 @@
-import { JsonRpcProvider, Connection, Ed25519Keypair, RawSigner, TransactionBlock } from '@mysten/sui';
+import { JsonRpcProvider, Connection } from '@mysten/sui/dist/esm/client/index.js';
+import { Ed25519Keypair } from '@mysten/sui/dist/esm/cryptography/index.js';
+import { TransactionBlock, RawSigner } from '@mysten/sui/dist/esm/transactions/index.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
