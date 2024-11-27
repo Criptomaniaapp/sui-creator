@@ -1,7 +1,7 @@
 import { SuiClient } from '@mysten/sui/client';
 
 export const client = new SuiClient({
-  url: process.env.NEXT_PUBLIC_SUI_FULLNODE_URL!, // Accede a la variable
+  url: process.env.NEXT_PUBLIC_SUI_RPC_URL!, // Accede a la variable
 });
 
 export const getVersion = async () => {

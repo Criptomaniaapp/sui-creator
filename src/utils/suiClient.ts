@@ -1,83 +1,47 @@
-import { JsonRpcProvider, Connection } from '@mysten/sui/dist/esm/client/index.js';
-import { Ed25519Keypair } from '@mysten/sui/dist/esm/cryptography/index.js';
-import { TransactionBlock, RawSigner } from '@mysten/sui/dist/esm/transactions/index.js';
+import { SuiClient, suiClient } from '@mysten/sui/client';
+import { Ed25519Keypair } from '@mysten/sui/cryptography';
+import { TransactionBlock } from '@mysten/sui/transactions';
 import dotenv from 'dotenv';
 
+// Cargar las variables de entorno
 dotenv.config();
 
-// Configuración del proveedor RPC
-const connection = new Connection({
-    fullnode: process.env.NEXT_PUBLIC_SUI_RPC_URL!, // URL del RPC (Helius)
+// Crear el cliente Sui
+export const client = suiClient({
+  url: process.env.NEXT_PUBLIC_SUI_RPC_URL || 'https://fullnode.mainnet.sui.io:443', // Endpoint RPC de Sui
 });
-const provider = new JsonRpcProvider(connection);
 
-// Crear un par de claves usando la clave privada del entorno
-const privateKeyBytes = Uint8Array.from(Buffer.from(process.env.SUI_PRIVATE_KEY!, 'hex'));
+// Crear el par de claves desde la clave privada del entorno
+const privateKeyHex = process.env.SUI_PRIVATE_KEY!;
+const privateKeyBytes = Uint8Array.from(Buffer.from(privateKeyHex, 'hex'));
 const keypair = Ed25519Keypair.fromSecretKey(privateKeyBytes);
-const signer = new RawSigner(keypair, provider);
 
-// Función para revocar Freeze Authority
-export async function revokeFreezeAuthority(objectId: string) {
-    try {
-        const tx = new TransactionBlock();
-        tx.moveCall({
-            target: '0x2::token::revoke_freeze_authority', // Dirección del módulo y función
-            arguments: [tx.object(objectId)],
-        });
+// Función para enviar transacciones firmadas
+export async function sendTransaction(tx: TransactionBlock) {
+  try {
+    const signedTx = await keypair.signTransactionBlock(tx);
+    const result = await client.executeTransactionBlock({
+      transactionBlock: signedTx,
+    });
 
-        const result = await signer.signAndExecuteTransactionBlock({
-            transactionBlock: tx,
-        });
-
-        console.log('Revoke Freeze Authority:', result);
-        return result;
-    } catch (error) {
-        console.error('Error revoking Freeze Authority:', error);
-        throw error;
-    }
+    console.log('Transaction executed:', result);
+    return result;
+  } catch (error) {
+    console.error('Error sending transaction:', error);
+    throw error;
+  }
 }
 
-// Función para revocar Mint Authority
-export async function revokeMintAuthority(objectId: string) {
-    try {
-        const tx = new TransactionBlock();
-        tx.moveCall({
-            target: '0x2::token::revoke_mint_authority', // Dirección del módulo y función
-            arguments: [tx.object(objectId)],
-        });
-
-        const result = await signer.signAndExecuteTransactionBlock({
-            transactionBlock: tx,
-        });
-
-        console.log('Revoke Mint Authority:', result);
-        return result;
-    } catch (error) {
-        console.error('Error revoking Mint Authority:', error);
-        throw error;
-    }
+// Función para consultar datos básicos de la red
+export async function getNetworkStatus() {
+  try {
+    const status = await client.getNetworkStatus();
+    console.log('Network Status:', status);
+    return status;
+  } catch (error) {
+    console.error('Error fetching network status:', error);
+    throw error;
+  }
 }
 
-// Función para revocar Metadata Update Authority
-export async function revokeMetadataUpdateAuthority(objectId: string) {
-    try {
-        const tx = new TransactionBlock();
-        tx.moveCall({
-            target: '0x2::token::revoke_metadata_update_authority', // Dirección del módulo y función
-            arguments: [tx.object(objectId)],
-        });
-
-        const result = await signer.signAndExecuteTransactionBlock({
-            transactionBlock: tx,
-        });
-
-        console.log('Revoke Metadata Update Authority:', result);
-        return result;
-    } catch (error) {
-        console.error('Error revoking Metadata Update Authority:', error);
-        throw error;
-    }
-}
-
-// Exportar el proveedor y el firmante
-export { provider, signer };
+export { client as suiClient, keypair as signer };
