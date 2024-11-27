@@ -1,4 +1,5 @@
-import { client } from '../utils/suiClient';
+import { client } from '../utils/suiClient.js';
+
 
 async function testClientConnection() {
     try {
