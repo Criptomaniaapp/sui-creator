@@ -1,15 +1,10 @@
-import { useState, useEffect } from 'react';
-
-
-declare global {
-  interface Window {
-    suiWallet?: any; // Declaración global para la extensión de Sui Wallet
-  }
-}
+import { useContext, useEffect, useState } from 'react';
+import Image from 'next/image';
+import { WalletContext } from '@/context/WalletContext'; // Importa el contexto de Wallet
 
 export default function Header() {
+  const { walletAddress, connectWallet, disconnectWallet, isWalletInstalled } = useContext(WalletContext); // Usa el contexto de Wallet
   const [network, setNetwork] = useState('Mainnet'); // Red por defecto
-  const [walletAddress, setWalletAddress] = useState<string | null>(null); // Dirección de la wallet
   const [dropdownOpen, setDropdownOpen] = useState(false); // Estado del dropdown de red
   const [price, setPrice] = useState<number | null>(null); // Precio del token SUI
 
@@ -25,84 +20,37 @@ export default function Header() {
         setPrice(null);
       }
     }
-
     fetchSuiPrice();
-    const interval = setInterval(fetchSuiPrice, 60000); // Actualiza cada minuto
+    const interval = setInterval(fetchSuiPrice, 60000);
     return () => clearInterval(interval);
   }, []);
-
-  // Al cargar la página, verificar si hay una wallet conectada previamente
-  useEffect(() => {
-    if (window.suiWallet) {
-      console.log('Sui Wallet detectada:', window.suiWallet);
-    } else {
-      console.log('Sui Wallet no detectada.');
-    }
-  }, []);
-
-  // Conectar la wallet
-  async function connectWallet() {
-    const wallet = window.suiWallet;
-
-    if (!wallet) {
-      alert('Sui Wallet no está instalada. Por favor, instala la extensión.');
-      return;
-    }
-
-    try {
-      const accounts = await wallet.request({ method: 'sui_connect' });
-      if (accounts && accounts.length > 0) {
-        setWalletAddress(accounts[0]);
-        localStorage.setItem('walletAddress', accounts[0]); // Guardar en localStorage
-        console.log('Wallet conectada:', accounts[0]);
-      } else {
-        alert('No se encontró ninguna cuenta conectada.');
-      }
-    } catch (error) {
-      console.error('Error al conectar la wallet:', error);
-      alert('No se pudo conectar la wallet. Por favor, inténtalo de nuevo.');
-    }
-  }
-
-  // Desconectar la wallet
-  function disconnectWallet() {
-    setWalletAddress(null);
-    localStorage.removeItem('walletAddress'); // Eliminar de localStorage
-    console.log('Wallet desconectada.');
-  }
 
   // Cambiar la red seleccionada
   const handleNetworkChange = (selectedNetwork: string) => {
     setNetwork(selectedNetwork);
     setDropdownOpen(false);
+
+    const rpcUrl =
+      selectedNetwork === 'Mainnet'
+        ? 'https://fullnode.mainnet.sui.io:443'
+        : 'https://fullnode.testnet.sui.io:443';
+    console.log(`Red seleccionada: ${selectedNetwork} (${rpcUrl})`);
   };
 
   return (
     <header className="bg-ocean text-cloud py-4 px-8 shadow-md flex justify-between items-center">
-      {/* Sección izquierda: Logo */}
       <div className="flex items-center gap-4">
-        <img
-          src="/logo.png"
-          alt="Logo de la Dapp"
-          className="h-8 w-auto"
-        />
+        <Image src="/logo.png" alt="Logo de la Dapp" width={50} height={50} />
       </div>
 
-      {/* Sección derecha: Red, precio de SUI y wallet */}
       <div className="flex items-center gap-6">
-        {/* Precio del token SUI */}
         <div className="flex items-center gap-2">
-          <img
-            src="/Sui_Symbol_White.svg"
-            alt="SUI Price Icon"
-            className="h-5 w-5"
-          />
+          <Image src="/Sui_Symbol_White.svg" alt="SUI Price Icon" width={20} height={20} />
           <span className="text-lg font-semibold">
             {price !== null ? `$${price.toFixed(2)}` : 'Cargando...'}
           </span>
         </div>
 
-        {/* Dropdown de red */}
         <div className="relative">
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -131,7 +79,13 @@ export default function Header() {
         {/* Botón para conectar/desconectar wallet */}
         {!walletAddress ? (
           <button
-            onClick={connectWallet}
+            onClick={() => {
+              if (!isWalletInstalled) {
+                alert('Sui Wallet no está instalada. Por favor, instala la extensión.');
+                return;
+              }
+              connectWallet();
+            }}
             className="bg-sea hover:bg-blue-500 px-4 py-2 rounded-lg text-white font-semibold focus:outline-none"
           >
             Conectar Wallet

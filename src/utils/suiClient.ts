@@ -1,4 +1,4 @@
-import { SuiClient } from '@mysten/sui';
+import { SuiClient } from '@mysten/sui/client';
 import dotenv from 'dotenv';
 
 dotenv.config();
