@@ -1,19 +1,20 @@
 import { useContext, useEffect, useState } from 'react';
 import Image from 'next/image';
-import { WalletContext } from '@/context/WalletContext';
+import { WalletContext } from '@/context/WalletContext'; // Importa el contexto de Wallet
 
 export default function Header() {
   const context = useContext(WalletContext);
 
   if (!context) {
-    throw new Error('Header debe estar dentro de un WalletProvider');
+    throw new Error('WalletContext no está disponible. Asegúrate de envolver tu aplicación con WalletProvider.');
   }
 
   const { walletAddress, connectWallet, disconnectWallet, isWalletInstalled } = context;
-  const [network, setNetwork] = useState('Mainnet');
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [price, setPrice] = useState<number | null>(null);
+  const [network, setNetwork] = useState('Mainnet'); // Red por defecto
+  const [dropdownOpen, setDropdownOpen] = useState(false); // Estado del dropdown de red
+  const [price, setPrice] = useState<number | null>(null); // Precio del token SUI
 
+  // Obtener el precio del token SUI en tiempo real
   useEffect(() => {
     async function fetchSuiPrice() {
       try {
@@ -30,6 +31,7 @@ export default function Header() {
     return () => clearInterval(interval);
   }, []);
 
+  // Cambiar la red seleccionada
   const handleNetworkChange = (selectedNetwork: string) => {
     setNetwork(selectedNetwork);
     setDropdownOpen(false);
@@ -110,4 +112,5 @@ export default function Header() {
     </header>
   );
 }
+
 
