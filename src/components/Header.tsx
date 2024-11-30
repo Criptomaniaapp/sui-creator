@@ -3,7 +3,15 @@ import Image from 'next/image';
 import { WalletContext } from '@/context/WalletContext'; // Importa el contexto de Wallet
 
 export default function Header() {
-  const { walletAddress, connectWallet, disconnectWallet, isWalletInstalled } = useContext(WalletContext); // Usa el contexto de Wallet
+  const walletContext = useContext(WalletContext);
+
+  // Verificar que el contexto esté disponible
+  if (!walletContext) {
+    throw new Error('WalletContext no está disponible. Asegúrate de envolver tu aplicación en WalletProvider.');
+  }
+
+  const { walletAddress, connectWallet, disconnectWallet, isWalletInstalled } = walletContext;
+
   const [network, setNetwork] = useState('Mainnet'); // Red por defecto
   const [dropdownOpen, setDropdownOpen] = useState(false); // Estado del dropdown de red
   const [price, setPrice] = useState<number | null>(null); // Precio del token SUI
