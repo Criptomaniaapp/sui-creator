@@ -30,7 +30,8 @@ export default function Header() {
 
   const connectWallet = async () => {
     try {
-      await select('suiet'); // Cambia 'suiet' por el nombre de tu wallet si es necesario
+      console.log('Available wallets:', wallets); // Imprime las wallets disponibles
+      await select('Sui Wallet'); // Cambia 'suiet' por 'Sui Wallet'
       console.log('Wallet connected:', account?.address);
     } catch (error) {
       console.error('Failed to connect wallet:', error);
@@ -133,7 +134,7 @@ export default function Header() {
         {/* Wallet Button */}
         {!connected ? (
           <button
-            onClick={handleConnectWallet}
+            onClick={connectWallet}
             className="bg-sea hover:bg-blue-500 px-4 py-2 rounded-lg text-white font-semibold focus:outline-none"
           >
             Connect Wallet
