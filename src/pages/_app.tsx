@@ -1,13 +1,6 @@
-import '@/styles/globals.css';
-import type { AppProps } from 'next/app';
-import { WalletProvider } from '@/context/WalletContext';
+import "@/styles/globals.css";
+import type { AppProps } from "next/app";
 
-export default function app({ Component, pageProps }: AppProps) {
-  return (
-    <WalletProvider>
-      <Component {...pageProps} />
-    </WalletProvider>
-  );
+export default function App({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />;
 }
-
-
