@@ -104,13 +104,15 @@ export default function Home() {
           </div>
           <div>
                 <label htmlFor="description" className="block text-sm font-medium">Description</label>
-                <textarea
+                <input
+                  type="text"
                   id="description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
                   placeholder="Project description (optional)"
                   className="w-full p-2 mt-1 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  rows={3}
-                ></textarea>
-              </div>
+                ></input>
+          </div>
         </form>
       ),
     },
