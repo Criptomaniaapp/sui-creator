@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-
+import { useWallet } from '@suiet/wallet-kit';
 
 export default function Header() {
   const [network, setNetwork] = useState('Mainnet'); // Default network
-  const [walletConnected, setWalletConnected] = useState(false); // Wallet connection state
-  const [walletAddress, setWalletAddress] = useState<string | null>(null); // Wallet address state
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [price, setPrice] = useState<number | null>(null); // SUI Token price
+
+  const { connect, disconnect, connected, account } = useWallet();
 
   // Fetch SUI Token price in real-time
   useEffect(() => {
@@ -29,22 +29,6 @@ export default function Header() {
     return () => clearInterval(interval);
   }, []);
 
-  // Simulate wallet connection (replace with actual wallet logic)
-  const connectWallet = async () => {
-    try {
-      const address = '0x1234...abcd'; // Example address
-      setWalletAddress(address);
-      setWalletConnected(true);
-    } catch (error) {
-      console.error('Failed to connect wallet:', error);
-    }
-  };
-
-  const disconnectWallet = () => {
-    setWalletAddress(null);
-    setWalletConnected(false);
-  };
-
   const handleNetworkChange = (selectedNetwork: string) => {
     setNetwork(selectedNetwork);
     setDropdownOpen(false);
@@ -55,7 +39,7 @@ export default function Header() {
       {/* Left Section: Logo */}
       <div className="flex items-center gap-4">
         <Image
-          src="/logo.png" // Path to the Dapp's new logo in the public folder
+          src="/logo.png" // Path to the Dapp's logo in the public folder
           alt="Dapp Logo"
           className="h-8 w-auto"
         />
@@ -127,9 +111,9 @@ export default function Header() {
         </div>
 
         {/* Wallet Button */}
-        {!walletConnected ? (
+        {!connected ? (
           <button
-            onClick={connectWallet}
+            onClick={connect}
             className="bg-sea hover:bg-blue-500 px-4 py-2 rounded-lg text-white font-semibold focus:outline-none"
           >
             Connect Wallet
@@ -140,11 +124,11 @@ export default function Header() {
               onClick={() => setDropdownOpen(!dropdownOpen)}
               className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg focus:outline-none"
             >
-              <span>{walletAddress}</span>
+              <span>{account?.address}</span>
             </button>
             <div className="absolute mt-2 bg-gray-700 rounded-lg shadow-lg text-sm">
               <button
-                onClick={disconnectWallet}
+                onClick={disconnect}
                 className="block px-4 py-2 hover:bg-gray-600 w-full text-left"
               >
                 Disconnect
