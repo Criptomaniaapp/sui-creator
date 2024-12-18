@@ -10,7 +10,6 @@ export default function Home() {
   const [tokenName, setTokenName] = useState('');
   const [tokenSymbol, setTokenSymbol] = useState('');
   const [logoUrl, setLogoUrl] = useState('');
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [description, setDescription] = useState('');
   const [supply, setSupply] = useState('');
   const [decimals, setDecimals] = useState('');
