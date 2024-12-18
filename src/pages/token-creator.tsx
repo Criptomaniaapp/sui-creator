@@ -11,11 +11,11 @@ export default function Home() {
   const [tokenSymbol, setTokenSymbol] = useState('');
   const [logoUrl, setLogoUrl] = useState('');
   const [description, setDescription] = useState('');
-  const [supply, setSupply] = useState('');
-  const [decimals, setDecimals] = useState('');
-  const [freezeAuthority, setFreezeAuthority] = useState(true);
-  const [mintAuthority, setMintAuthority] = useState(true);
-  const [updateAuthority, setUpdateAuthority] = useState(true);
+  const [supply, setSupply] = useState(''); // eslint-disable-line @typescript-eslint/no-unused-vars
+  const [decimals, setDecimals] = useState(''); // eslint-disable-line @typescript-eslint/no-unused-vars
+  const [freezeAuthority, setFreezeAuthority] = useState(true); // eslint-disable-line @typescript-eslint/no-unused-vars
+  const [mintAuthority, setMintAuthority] = useState(true); // eslint-disable-line @typescript-eslint/no-unused-vars
+  const [updateAuthority, setUpdateAuthority] = useState(true); // eslint-disable-line @typescript-eslint/no-unused-vars
   const [creatorName, setCreatorName] = useState('');
   const [creatorSite, setCreatorSite] = useState('');
   const [showSocialLinks, setShowSocialLinks] = useState(false);
