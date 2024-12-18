@@ -11,11 +11,11 @@ export default function Home() {
   const [tokenSymbol, setTokenSymbol] = useState('');
   const [logoUrl, setLogoUrl] = useState('');
   const [description, setDescription] = useState('');
-  const [supply, setSupply] = useState(''); // eslint-disable-line @typescript-eslint/no-unused-vars
-  const [decimals, setDecimals] = useState(''); // eslint-disable-line @typescript-eslint/no-unused-vars
-  const [freezeAuthority, setFreezeAuthority] = useState(true); // eslint-disable-line @typescript-eslint/no-unused-vars
-  const [mintAuthority, setMintAuthority] = useState(true); // eslint-disable-line @typescript-eslint/no-unused-vars
-  const [updateAuthority, setUpdateAuthority] = useState(true); // eslint-disable-line @typescript-eslint/no-unused-vars
+  const [supply, _setSupply] = useState(''); // eslint-disable-line @typescript-eslint/no-unused-vars
+  const [decimals, _setDecimals] = useState(''); // eslint-disable-line @typescript-eslint/no-unused-vars
+  const [freezeAuthority, _setFreezeAuthority] = useState(true); // eslint-disable-line @typescript-eslint/no-unused-vars
+  const [mintAuthority, _setMintAuthority] = useState(true); // eslint-disable-line @typescript-eslint/no-unused-vars
+  const [updateAuthority, _setUpdateAuthority] = useState(true); // eslint-disable-line @typescript-eslint/no-unused-vars
   const [creatorName, setCreatorName] = useState('');
   const [creatorSite, setCreatorSite] = useState('');
   const [showSocialLinks, setShowSocialLinks] = useState(false);

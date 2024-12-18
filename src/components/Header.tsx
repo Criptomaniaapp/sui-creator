@@ -52,7 +52,7 @@ export default function Header() {
     <header className="bg-ocean text-cloud py-4 px-8 shadow-md flex justify-between items-center">
       {/* Left Section: Logo */}
       <div className="flex items-center gap-4">
-        <img
+        <Image
           src="/logo.png" // Path to the Dapp's new logo in the public folder
           alt="Dapp Logo"
           className="h-8 w-auto"
@@ -65,7 +65,7 @@ export default function Header() {
         <div className="relative flex items-center gap-4">
           {/* SUI Price */}
           <div className="flex items-center gap-2">
-            <img
+            <Image
               src="/Sui_Symbol_White.svg" // Path to the SUI symbol in the public folder
               alt="SUI Price Icon"
               className="h-5 w-5"
@@ -79,7 +79,7 @@ export default function Header() {
               onClick={() => setDropdownOpen(!dropdownOpen)}
               className="flex items-center gap-2 bg-cloud text-ocean px-4 py-2 rounded-lg hover:bg-sea focus:outline-none"
             >
-              <img
+              <Image
                 src="/Sui_Symbol_White.svg" // Path to the SUI symbol in the public folder
                 alt="Network Icon"
                 className="h-5 w-5"
@@ -101,7 +101,7 @@ export default function Header() {
                   onClick={() => handleNetworkChange('Mainnet')}
                   className="flex items-center gap-2 px-4 py-2 hover:bg-sea text-ocean w-full text-left"
                 >
-                  <img
+                  <Image
                     src="/Sui_Symbol_White.svg"
                     alt="Mainnet Icon"
                     className="h-5 w-5"
@@ -112,7 +112,7 @@ export default function Header() {
                   onClick={() => handleNetworkChange('Testnet')}
                   className="flex items-center gap-2 px-4 py-2 hover:bg-sea text-ocean w-full text-left"
                 >
-                  <img
+                  <Image
                     src="/Sui_Symbol_White.svg"
                     alt="Testnet Icon"
                     className="h-5 w-5"
