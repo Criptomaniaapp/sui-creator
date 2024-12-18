@@ -30,7 +30,9 @@ export default function Header() {
 
   const connectWallet = async () => {
     try {
-      console.log('Available wallets:', wallets); // Imprime las wallets disponibles
+      const availableWallets = getWallets(); // Obtener wallets disponibles
+      console.log('Available wallets:', availableWallets);
+      
       await select('Sui Wallet'); // Cambia 'suiet' por 'Sui Wallet'
       console.log('Wallet connected:', account?.address);
     } catch (error) {
@@ -161,3 +163,7 @@ export default function Header() {
     </header>
   );
 }
+function getWallets() {
+  throw new Error('Function not implemented.');
+}
+
