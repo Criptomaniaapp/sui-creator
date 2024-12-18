@@ -30,10 +30,14 @@ export default function Header() {
 
   const connectWallet = async () => {
     try {
-      const availableWallets = getWallets(); // Obtener wallets disponibles
+      const availableWallets = getWallets();
       console.log('Available wallets:', availableWallets);
-      
-      await select('Sui Wallet'); // Cambia 'suiet' por 'Sui Wallet'
+
+      if (!availableWallets || availableWallets.length === 0) {
+        throw new Error('No wallets available');
+      }
+
+      await select('Sui Wallet'); // Cambia al nombre de la wallet disponible
       console.log('Wallet connected:', account?.address);
     } catch (error) {
       console.error('Failed to connect wallet:', error);
