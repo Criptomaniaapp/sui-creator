@@ -86,7 +86,7 @@ export default function Home() {
               type="number"
               id="supply"
               value={supply}
-              onChange={(e) => setSupply(e.target.value)}
+              onChange={(e) => _setSupply(e.target.value)}
               placeholder="Enter total supply"
               className="w-full p-2 mt-1 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -97,7 +97,7 @@ export default function Home() {
               type="number"
               id="decimals"
               value={decimals}
-              onChange={(e) => setDecimals(e.target.value)}
+              onChange={(e) => _setDecimals(e.target.value)}
               placeholder="Enter decimals"
               className="w-full p-2 mt-1 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -224,7 +224,7 @@ export default function Home() {
                 <input
                   type="checkbox"
                   checked={freezeAuthority}
-                  onChange={() => setFreezeAuthority(!freezeAuthority)}
+                  onChange={() => _setFreezeAuthority(!freezeAuthority)}
                   className="sr-only peer"
                 />
                 <div className="w-11 h-6 bg-gray-500 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:bg-blue-500"></div>
@@ -242,7 +242,7 @@ export default function Home() {
                 <input
                   type="checkbox"
                   checked={mintAuthority}
-                  onChange={() => setMintAuthority(!mintAuthority)}
+                  onChange={() => _setMintAuthority(!mintAuthority)}
                   className="sr-only peer"
                 />
                 <div className="w-11 h-6 bg-gray-500 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:bg-blue-500"></div>
@@ -260,7 +260,7 @@ export default function Home() {
                 <input
                   type="checkbox"
                   checked={updateAuthority}
-                  onChange={() => setUpdateAuthority(!updateAuthority)}
+                  onChange={() => _setUpdateAuthority(!updateAuthority)}
                   className="sr-only peer"
                 />
                 <div className="w-11 h-6 bg-gray-500 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:bg-blue-500"></div>
