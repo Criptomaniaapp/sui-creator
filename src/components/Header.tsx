@@ -30,17 +30,11 @@ export default function Header() {
 
   const connectWallet = async () => {
     try {
-      const availableWallets = getWallets();
-      console.log('Available wallets:', availableWallets);
-
-      if (!availableWallets || availableWallets.length === 0) {
-        throw new Error('No wallets available');
-      }
-
-      await select('Sui Wallet'); // Cambia al nombre de la wallet disponible
+      // Intenta conectar con Sui Wallet
+      await select('Sui Wallet'); // Cambia 'Sui Wallet' si necesitas otra wallet compatible
       console.log('Wallet connected:', account?.address);
     } catch (error) {
-      console.error('Failed to connect wallet:', error);
+      console.error('Failed to connect wallet:', error.message || error);
     }
   };
 
@@ -139,30 +133,11 @@ export default function Header() {
 
         {/* Wallet Button */}
         {!connected ? (
-          <button
-            onClick={connectWallet}
-            className="bg-sea hover:bg-blue-500 px-4 py-2 rounded-lg text-white font-semibold focus:outline-none"
-          >
-            Connect Wallet
-          </button>
-        ) : (
-          <div className="relative">
-            <button
-              onClick={() => setDropdownOpen(!dropdownOpen)}
-              className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg focus:outline-none"
-            >
-              <span>{account?.address}</span>
-            </button>
-            <div className="absolute mt-2 bg-gray-700 rounded-lg shadow-lg text-sm">
-              <button
-                onClick={disconnect}
-                className="block px-4 py-2 hover:bg-gray-600 w-full text-left"
-              >
-                Disconnect
-              </button>
-            </div>
-          </div>
-        )}
+        <button onClick={connectWallet}>Connect Wallet</button>
+      ) : (
+        <button onClick={disconnect}>Disconnect Wallet</button>
+      )}
+      {connected && <p>Connected Address: {account?.address}</p>}
       </div>
     </header>
   );
