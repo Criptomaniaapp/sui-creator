@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { useWallet } from '@suiet/wallet-kit';
-import { ConnectButton } from '@mysten/dapp-kit';
+import { ConnectButton, useWallets } from '@mysten/dapp-kit';
 
 export default function Header() {
-  const { connected, select, account, disconnect } = useWallet();
+  const wallets = useWallets();
+  const [connectedWallet, setConnectedWallet] = useState<string | null>(null);
   const [network, setNetwork] = useState('Mainnet'); // Default network
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [price, setPrice] = useState<number | null>(null); // SUI Token price
@@ -29,17 +29,24 @@ export default function Header() {
     return () => clearInterval(interval);
   }, []);
 
-  const connectWallet = async () => {
-    try {
-      await select('Sui Wallet'); // Cambia al nombre de la wallet disponible
-      console.log('Wallet connected:', account?.address);
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error('Failed to connect wallet:', error.message);
-      } else {
+  
+
+  // Encuentra la wallet conectada
+  const handleConnect = async () => {
+    const wallet = wallets[0]; // Usamos la primera wallet como ejemplo
+    if (wallet && wallet.features['standard:connect']) {
+      try {
+        const response = await wallet.features['standard:connect'].connect();
+        const firstAccount = response.accounts?.[0]?.address || null; // Extraemos la dirección de la primera cuenta
+        setConnectedWallet(firstAccount);
+      } catch (error) {
         console.error('Failed to connect wallet:', error);
       }
     }
+  };
+
+  const handleDisconnect = () => {
+    setConnectedWallet(null);
   };
 
   // Función para formatear la dirección de la wallet
@@ -51,17 +58,6 @@ export default function Header() {
   const handleNetworkChange = (selectedNetwork: string) => {
     setNetwork(selectedNetwork);
     setDropdownOpen(false);
-  };
-
-
-  const handleConnectWallet = async () => {
-    console.log('Attempting to connect...');
-    try {
-      await select('suiet'); // Cambia 'suiet' si utilizas otra wallet
-      console.log('Wallet connected:', account?.address);
-    } catch (error) {
-      console.error('Failed to connect wallet:', error);
-    }
   };
   
   
@@ -143,7 +139,21 @@ export default function Header() {
 
         {/* Wallet Button */}
         <ConnectButton />
-        
+        {connectedWallet ? (
+        <button
+          onClick={handleDisconnect}
+          className="px-4 py-2 rounded-full bg-gradient-to-r from-green-400 to-blue-500 text-white font-semibold shadow-lg hover:from-green-500 hover:to-blue-600 transition-transform transform hover:scale-105"
+        >
+          Connected: {`${connectedWallet.slice(0, 6)}...${connectedWallet.slice(-4)}`}
+        </button>
+      ) : (
+        <button
+          onClick={handleConnect}
+          className="px-4 py-2 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold shadow-lg hover:from-pink-600 hover:to-purple-700 transition-transform transform hover:scale-105"
+        >
+          Connect Wallet
+        </button>
+      )}
       </div>
     </header>
   );
