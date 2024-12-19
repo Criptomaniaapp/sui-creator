@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useWallet } from '@suiet/wallet-kit';
+import { ConnectButton } from '@mysten/dapp-kit';
 
 export default function Header() {
   const { connected, select, account, disconnect } = useWallet();
@@ -141,6 +142,7 @@ export default function Header() {
         </div>
 
         {/* Wallet Button */}
+        <ConnectButton />
         {!connected ? (
           <button
             onClick={connectWallet}
