@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useWallet } from '@suiet/wallet-kit';
+import { ConnectButton } from '@mysten/dapp-kit';
 
 export default function Header() {
   const { connected, select, account, disconnect } = useWallet();
@@ -141,31 +142,8 @@ export default function Header() {
         </div>
 
         {/* Wallet Button */}
-        {!connected ? (
-          <button
-            onClick={connectWallet}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold"
-          >
-            Connect Wallet
-          </button>
-        ) : (
-          <div className="flex items-center gap-4">
-            <div className="bg-gray-700 text-white px-3 py-1 rounded-full flex items-center gap-2">
-              <Image
-                src="/wallet-icon.png" // Reemplaza con el ícono de wallet que prefieras
-                alt="Wallet Icon"
-                className="h-4 w-4"
-              />
-              <span className="font-mono text-sm">{formatAddress(account?.address)}</span>
-            </div>
-            <button
-              onClick={disconnect}
-              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-semibold"
-            >
-              Disconnect
-            </button>
-          </div>
-        )}
+        <ConnectButton />
+        
       </div>
     </header>
   );
