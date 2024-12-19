@@ -148,7 +148,7 @@ export default function Header() {
       ) : (
         <button
           onClick={handleConnect}
-          className="px-4 py-2 rounded-full bg-gradient-to-r from-aqua-500 to-ocean-600 text-white font-semibold shadow-lg hover:from-pink-600 hover:to-purple-700 transition-transform transform hover:scale-105"
+          className="px-4 py-2 rounded-full bg-gradient-to-r from-aqua-500 to-ocean-600 text-white font-semibold shadow-lg hover:from-#011829-600 hover:to-#030F1C-700 transition-transform transform hover:scale-105"
         >
           Connect Wallet
         </button>
