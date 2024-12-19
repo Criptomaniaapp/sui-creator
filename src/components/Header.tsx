@@ -41,6 +41,12 @@ export default function Header() {
     }
   };
 
+  // Función para formatear la dirección de la wallet
+  const formatAddress = (address: string | undefined | null) => {
+    if (!address) return '';
+    return `${address.slice(0, 6)}...${address.slice(-4)}`;
+  };
+
   const handleNetworkChange = (selectedNetwork: string) => {
     setNetwork(selectedNetwork);
     setDropdownOpen(false);
@@ -136,11 +142,30 @@ export default function Header() {
 
         {/* Wallet Button */}
         {!connected ? (
-        <button onClick={connectWallet}>Connect Wallet</button>
-      ) : (
-        <button onClick={disconnect}>Disconnect Wallet</button>
-      )}
-      {connected && <p>Connected Address: {account?.address}</p>}
+          <button
+            onClick={connectWallet}
+            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold"
+          >
+            Connect Wallet
+          </button>
+        ) : (
+          <div className="flex items-center gap-4">
+            <div className="bg-gray-700 text-white px-3 py-1 rounded-full flex items-center gap-2">
+              <Image
+                src="/wallet-icon.svg" // Reemplaza con el ícono de wallet que prefieras
+                alt="Wallet Icon"
+                className="h-4 w-4"
+              />
+              <span className="font-mono text-sm">{formatAddress(account?.address)}</span>
+            </div>
+            <button
+              onClick={disconnect}
+              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-semibold"
+            >
+              Disconnect
+            </button>
+          </div>
+        )}
       </div>
     </header>
   );
