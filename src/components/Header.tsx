@@ -152,7 +152,7 @@ export default function Header() {
           <div className="flex items-center gap-4">
             <div className="bg-gray-700 text-white px-3 py-1 rounded-full flex items-center gap-2">
               <Image
-                src="/wallet-icon.svg" // Reemplaza con el ícono de wallet que prefieras
+                src="/wallet-icon.png" // Reemplaza con el ícono de wallet que prefieras
                 alt="Wallet Icon"
                 className="h-4 w-4"
               />
