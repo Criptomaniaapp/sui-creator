@@ -58,10 +58,6 @@ export default function Header() {
   };
   
   
-  function formatAddress(address: string | undefined): import("react").ReactNode {
-    throw new Error('Function not implemented.');
-  }
-
   return (
     <header className="bg-ocean text-cloud py-4 px-8 shadow-md flex justify-between items-center">
       {/* Left Section: Logo */}
@@ -142,10 +138,7 @@ export default function Header() {
         {!connected ? (
         <button onClick={connectWallet}>Connect Wallet</button>
       ) : (
-        <div className="flex items-center gap-2">
-          <p>{formatAddress(account?.address)}</p>
-          <button onClick={disconnect}>Disconnect</button>
-        </div>
+        <button onClick={disconnect}>Disconnect Wallet</button>
       )}
       {connected && <p>Connected Address: {account?.address}</p>}
       </div>
