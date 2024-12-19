@@ -30,11 +30,14 @@ export default function Header() {
 
   const connectWallet = async () => {
     try {
-      // Intenta conectar con Sui Wallet
-      await select('Sui Wallet'); // Cambia 'Sui Wallet' si necesitas otra wallet compatible
+      await select('Sui Wallet'); // Cambia al nombre de la wallet disponible
       console.log('Wallet connected:', account?.address);
     } catch (error) {
-      console.error('Failed to connect wallet:', error.message || error);
+      if (error instanceof Error) {
+        console.error('Failed to connect wallet:', error.message);
+      } else {
+        console.error('Failed to connect wallet:', error);
+      }
     }
   };
 
