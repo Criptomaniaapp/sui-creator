@@ -31,10 +31,12 @@ export default function Home() {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const removeTag = (tag: string) => {
     setTags((prev) => prev.filter((t) => t !== tag));
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleTagInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && inputTag.trim() !== '') {
       e.preventDefault();

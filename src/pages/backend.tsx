@@ -10,11 +10,11 @@ export default function Home() {
   const [tokenName, setTokenName] = useState('');
   const [tokenSymbol, setTokenSymbol] = useState('');
   const [logoUrl, setLogoUrl] = useState('');
-  const [supply, setSupply] = useState('');
-  const [decimals, setDecimals] = useState('');
-  const [freezeAuthority, setFreezeAuthority] = useState(true);
-  const [mintAuthority, setMintAuthority] = useState(true);
-  const [updateAuthority, setUpdateAuthority] = useState(true);
+  const [supply] = useState('');
+  const [decimals] = useState('');
+  const [freezeAuthority] = useState(true);
+  const [mintAuthority] = useState(true);
+  const [updateAuthority] = useState(true);
   const [creatorName, setCreatorName] = useState('');
   const [creatorSite, setCreatorSite] = useState('');
 
@@ -248,6 +248,7 @@ export default function Home() {
             <div className="bg-gray-800 p-6 rounded-lg shadow-md space-y-6">
               <div className="flex items-center gap-4">
                 {logoUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={logoUrl}
                     alt="Token Logo"
