@@ -27,6 +27,7 @@ interface TokenPreviewProps {
       <div className="bg-gray-800 p-6 rounded-lg shadow-md space-y-6">
         <div className="flex items-center gap-4">
           {logoUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={logoUrl}
               alt="Token Logo"

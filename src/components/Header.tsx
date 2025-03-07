@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { ConnectButton, useWallets } from '@mysten/dapp-kit';
 
 export default function Header() {
@@ -50,6 +51,7 @@ export default function Header() {
   };
 
   // Función para formatear la dirección de la wallet
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const formatAddress = (address: string | undefined | null) => {
     if (!address) return '';
     return `${address.slice(0, 6)}...${address.slice(-4)}`;
@@ -166,6 +168,7 @@ export default function Header() {
     </header>
   );
 }
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getWallets() {
   throw new Error('Function not implemented.');
 }
