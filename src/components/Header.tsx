@@ -65,11 +65,12 @@ export default function Header() {
     <header className="bg-ocean text-cloud py-4 px-8 shadow-md flex justify-between items-center">
       {/* Left Section: Logo */}
       <div className="flex items-center gap-4">
-        <Image
-          src="/logo.png" // Path to the Dapp's new logo in the public folder
-          alt="Dapp Logo"
-          className="h-8 w-auto"
-        />
+      <Image
+        src="/logo.png"
+        alt="Logo"
+        width={100}  // Especifica el ancho de la imagen
+        height={100} // Especifica la altura de la imagen
+      />
       </div>
 
       {/* Right Section: Network, SUI Price, and Wallet */}
@@ -81,6 +82,8 @@ export default function Header() {
             <Image
               src="/Sui_Symbol_White.svg" // Path to the SUI symbol in the public folder
               alt="SUI Price Icon"
+              width={100}  // Especifica el ancho de la imagen
+              height={100}
               className="h-5 w-5"
             />
             <span className="text-lg font-semibold">
@@ -95,6 +98,8 @@ export default function Header() {
               <Image
                 src="/Sui_Symbol_White.svg" // Path to the SUI symbol in the public folder
                 alt="Network Icon"
+                width={100}  // Especifica el ancho de la imagen
+                height={100}
                 className="h-5 w-5"
               />
               <span>{network}</span>
@@ -117,6 +122,8 @@ export default function Header() {
                   <Image
                     src="/Sui_Symbol_White.svg"
                     alt="Mainnet Icon"
+                    width={100}  // Especifica el ancho de la imagen
+                    height={100}
                     className="h-5 w-5"
                   />
                   Mainnet
@@ -128,6 +135,8 @@ export default function Header() {
                   <Image
                     src="/Sui_Symbol_White.svg"
                     alt="Testnet Icon"
+                    width={100}  // Especifica el ancho de la imagen
+                    height={100}
                     className="h-5 w-5"
                   />
                   Testnet
